@@ -1,5 +1,5 @@
-// import ITeamService from "../interfaces/ITeamService";
+import ITeamService from "../interfaces/ITeamService";
 
-// export default class TeamService implements ITeamService {
+export default class TeamService implements ITeamService {
 
-// }
+}
