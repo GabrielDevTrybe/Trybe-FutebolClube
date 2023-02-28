@@ -9,7 +9,7 @@ import TeamModel from '../database/models/TeamModel';
 
 import { Response } from 'superagent';
 
-import { teamsMock } from './mock/Team.mock'
+import { teamsMock, teamIDMock } from './mock/Team.mock'
 
 chai.use(chaiHttp);
 
@@ -42,5 +42,28 @@ describe('Teste Serviço: Teams', () => {
 
       expect(response.body).to.be.deep.equal(teamsMock)
     })
+  })
+
+  describe('Função findByPk', function () {
+
+    it('Testa se retorna o status correto', async () => {
+      
+      sinon.stub(Model, 'findByPk').resolves(teamIDMock);
+      const response = await chai.request(app.app).get('/teams/1');
+      expect(response.status).to.be.equal(200);
+
+
+    })
+
+    it('Retorna o elemento correto baseado no id', async () => {
+      sinon.stub(Model, 'findByPk').resolves(teamIDMock);
+
+      const response = await chai.request(app.app).get('/teams/1');
+
+      expect(response.body).to.be.deep.equal(teamIDMock)
+
+    })
+
+
   })
 });

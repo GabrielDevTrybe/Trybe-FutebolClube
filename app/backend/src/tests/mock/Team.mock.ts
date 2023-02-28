@@ -16,6 +16,12 @@ const teamsMock: TeamModel[] = [
 ] as TeamModel[];
 
 
+const teamIDMock: TeamModel = {
+  "id": 1,
+  "teamName": "Avaí/Kindermann"
+} as TeamModel;
+
 export {
   teamsMock,
+  teamIDMock
 }

@@ -10,4 +10,12 @@ export default class TeamService implements ITeamService {
     const teams = await this.model.findAll();
     return teams;
   }
+
+  async findById(id: number): Promise<TeamModel> {
+    const team = await this.model.findByPk(id);
+    if (!team) {
+      throw new Error('invalid ID');
+    }
+    return team;
+  }
 }
