@@ -10,6 +10,7 @@ const loginController = new LoginController(loginService);
 loginRouter.post(
   '/login',
   LoginMiddleware.validatelogin,
+  LoginMiddleware.validateEmailAndPassword,
   (req: Request, res: Response) => loginController.create(req, res),
 );
 loginRouter.get('/login', (req: Request, res: Response) => loginController.findAll(req, res));
