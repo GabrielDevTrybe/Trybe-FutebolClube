@@ -17,7 +17,10 @@ class LoginController {
   async create(req: Request, res: Response) {
     const login = req.body;
     const token = JWTtoken.generateToken(login);
-    await this._service.create(login);
+    const result = await this._service.create(login);
+    if (!result.email || !result.password) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
     return res.status(200).json({ token });
   }
 }
