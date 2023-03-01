@@ -11,6 +11,8 @@ import { App } from '../app';
 
 import { Response } from 'superagent';
 
+import { userMock, allUsers } from './mock/Login.mock'
+
 
 chai.use(chaiHttp);
 
@@ -24,16 +26,25 @@ describe('Teste Serviço: User', () => {
     sinon.restore();
   });
 
-  describe('Função create', function() {
-    it('Testa se a requisição devolve o status 201', async () => {
-      const user = {
-        email: 'exemplo@exemplo.com',
-        password: '123456'
-      }
+  describe('Função create e findAll', function () {
+    it('Testa se a requisição devolve o status 200', async () => {
 
-      const response = await chai.request(app.app).post('/post').send(user);
+      sinon.stub(Model, 'create').resolves(userMock);
 
-      expect(response.status).to.be.equal(201);   
+
+      const response = await chai.request(app.app).post('/login');
+
+      expect(response.status).to.be.equal(200);
+
+
+    })
+
+    it('Testa se ao dar um get em /login, retorna um status 200', async () => {
+      sinon.stub(Model, 'findAll').resolves(allUsers);
+
+      const response = await chai.request(app.app).get('/login');
+
+      expect(response.status).to.be.equal(200);
 
 
 

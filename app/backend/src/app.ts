@@ -1,6 +1,7 @@
 import * as express from 'express';
 import teamRouter from './api/routes/TeamRoutes';
 import loginRouter from './api/routes/LoginRouter';
+// import LoginMiddleware from './api/middlewares/LoginMiddleware';
 
 class App {
   public app: express.Express;
@@ -11,6 +12,8 @@ class App {
     this.config();
 
     this.initRoutes();
+
+    // this.initMiddlewares();
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
@@ -36,6 +39,10 @@ class App {
     this.app.use(teamRouter);
     this.app.use(loginRouter);
   }
+
+  // private initMiddlewares() {
+  //   this.app.use(LoginMiddleware.validatelogin);
+  // }
 }
 
 export { App };
