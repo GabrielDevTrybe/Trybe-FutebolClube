@@ -5,7 +5,10 @@ import db from '.';
 class User extends Model {
   // declare <campo>: <tipo>;
   declare readonly id: number;
-  declare teamName: string;
+  declare username: string;
+  declare role: string;
+  declare email: string;
+  declare password: string;
 }
 
 User.init({
@@ -38,5 +41,7 @@ User.init({
   sequelize: db,
   underscored: true,
   timestamps: false,
-  modelName: 'teams',
+  modelName: 'users',
 });
+
+export default User;
