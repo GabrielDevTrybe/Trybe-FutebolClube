@@ -1,6 +1,8 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
-import { Model } from 'sequelize';
+// import { Model } from 'sequelize';
+import User from '../database/models/UserModel';
+
 
 // @ts-ignore
 
@@ -26,13 +28,13 @@ describe('Teste Serviço: User', () => {
     sinon.restore();
   });
 
-  describe('Função create e findAll', function () {
+  describe('Função findOne e findAll', function () {
     it('Testa se a requisição devolve o status 200', async () => {
 
-      sinon.stub(Model, 'create').resolves(userMock);
+      sinon.stub(User, 'findOne').resolves(userMock);
 
 
-      const response = await chai.request(app.app).post('/login');
+      const response = await chai.request(app.app).post('/login').send({ email: userMock.email, password: 'secret_user' });
 
       expect(response.status).to.be.equal(200);
 
@@ -40,7 +42,7 @@ describe('Teste Serviço: User', () => {
     })
 
     it('Testa se ao dar um get em /login, retorna um status 200', async () => {
-      sinon.stub(Model, 'findAll').resolves(allUsers);
+      sinon.stub(User, 'findAll').resolves(allUsers);
 
       const response = await chai.request(app.app).get('/login');
 

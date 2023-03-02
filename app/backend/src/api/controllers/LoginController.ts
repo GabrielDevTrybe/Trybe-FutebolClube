@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import * as bcrypt from 'bcryptjs';
 import ILoginService from '../interfaces/ILoginService';
 import JWTtoken from '../../utils/JWT';
+// import decodeToken from '../middlewares/AuthValidate';
 
 class LoginController {
   private _service: ILoginService;
@@ -15,18 +16,30 @@ class LoginController {
     return res.status(200).json(result);
   }
 
-  async create(req: Request, res: Response) {
+  async findOne(req: Request, res: Response) {
     const login = req.body;
-    const token = JWTtoken.generateToken(login);
+    const { email } = login;
     const result = await this._service.findOne(login);
     if (!result) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
+    const token = JWTtoken.generateToken({ email, role: result.role });
     const verifyPassword = bcrypt.compareSync(req.body.password, result.password);
     if (!verifyPassword) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
     return res.status(200).json({ token });
+  }
+
+  async getRole(req: Request, res: Response) {
+    const { authorization } = req.headers;
+    if (!authorization) {
+      return res.status(401).json({ message: 'Token not found' });
+    }
+    const result = await this._service.getRole(authorization);
+    console.log(result);
+
+    return res.status(200).json({ role: result.role });
   }
 }
 
