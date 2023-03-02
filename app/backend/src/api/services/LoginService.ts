@@ -11,8 +11,8 @@ export default class LoginService implements ILoginService {
     return users;
   }
 
-  async create(dto: ILogin): Promise<User> {
-    const user = await this.model.create({ ...dto });
+  async findOne(dto: ILogin): Promise<User | null> {
+    const user = await this.model.findOne({ where: { email: dto.email } });
     return user;
   }
 }
