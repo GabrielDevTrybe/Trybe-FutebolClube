@@ -32,7 +32,7 @@ const decodeToken = (token: string) => {
   }
 };
 
-export default {
+export {
   generateToken,
   decodeToken,
 };

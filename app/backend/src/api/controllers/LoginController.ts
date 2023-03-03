@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import * as bcrypt from 'bcryptjs';
 import ILoginService from '../interfaces/ILoginService';
-import JWTtoken from '../../utils/JWT';
+import { generateToken } from '../../utils/JWT';
 // import decodeToken from '../middlewares/AuthValidate';
 
 class LoginController {
@@ -23,7 +23,7 @@ class LoginController {
     if (!result) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
-    const token = JWTtoken.generateToken({ email, role: result.role });
+    const token = generateToken({ email, role: result.role });
     const verifyPassword = bcrypt.compareSync(req.body.password, result.password);
     if (!verifyPassword) {
       return res.status(401).json({ message: 'Invalid email or password' });
@@ -39,7 +39,7 @@ class LoginController {
     const result = await this._service.getRole(authorization);
     console.log(result);
 
-    return res.status(200).json({ role: result.role });
+    return res.status(200).json({ role: req.body.user.role });
   }
 }
 

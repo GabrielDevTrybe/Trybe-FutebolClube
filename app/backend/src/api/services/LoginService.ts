@@ -4,7 +4,7 @@ import User from '../../database/models/UserModel';
 import ILogin from '../interfaces/ILogin';
 import ILoginService from '../interfaces/ILoginService';
 // import IRole from '../interfaces/IRole';
-import decodeToken from '../../utils/JWT';
+import { decodeToken } from '../../utils/JWT';
 
 export default class LoginService implements ILoginService {
   validateToken = (decodeTokenParam: string | null | JwtPayload) => decodeTokenParam;
@@ -22,7 +22,7 @@ export default class LoginService implements ILoginService {
   }
 
   async getRole(token: string): Promise<string | null | JwtPayload> {
-    const verify = await this.validateToken(decodeToken.decodeToken(token));
+    const verify = await this.validateToken(decodeToken(token));
     return verify;
   }
 }

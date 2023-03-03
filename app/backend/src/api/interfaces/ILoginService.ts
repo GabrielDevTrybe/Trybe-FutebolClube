@@ -4,6 +4,6 @@ import ILogin from './ILogin';
 
 export default interface ILoginService {
   findOne(dto: ILogin): Promise<User | null>,
-  getRole(token: string): any,
+  getRole(token: string): object,
   findAll(): Promise<User[]>
 }
