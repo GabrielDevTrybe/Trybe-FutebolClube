@@ -22,6 +22,7 @@ describe('Teste Serviço: Teams', () => {
     sinon.restore();
   });
 
+  
   describe('Função findAll', function () {
 
     it('Retorna o status correto', async () => {
