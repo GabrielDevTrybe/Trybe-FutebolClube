@@ -14,4 +14,10 @@ matchRouter.patch(
   (req: Request, res: Response) => matchController.finishMath(req, res),
 );
 
+matchRouter.patch(
+  '/matches/:id',
+  authValidate.authValidate,
+  (req: Request, res: Response) => matchController.updateMatch(req, res),
+);
+
 export default matchRouter;

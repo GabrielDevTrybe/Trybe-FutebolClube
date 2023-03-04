@@ -19,4 +19,8 @@ export default class MatchService implements IMathService {
   async finishMath(id: string) {
     await this.model.update({ inProgress: false }, { where: { id } });
   }
+
+  async updateMatch(id: string, homeTeamGoals: number, awayTeamGoals: number) {
+    await this.model.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+  }
 }
