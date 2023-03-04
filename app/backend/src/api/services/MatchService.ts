@@ -15,4 +15,8 @@ export default class MatchService implements IMathService {
     });
     return match;
   }
+
+  async finishMath(id: string) {
+    await this.model.update({ inProgress: false }, { where: { id } });
+  }
 }
