@@ -40,11 +40,9 @@ const allUsers: User[] = [
 
 
 const userMock: User = {
-  "username": "Admin2",
-  "role": "admin2",
-  "email": "admin2@admin.com",
-  "password": "$222a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW"
-} as User;
+    "email": "admin@admin.com",
+    "password": "secret_admin"
+  } as User;
 
 
 export {

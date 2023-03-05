@@ -49,6 +49,9 @@ export default class MatchController {
       awayTeamId,
       awayTeamGoals,
     );
+
+    // const allTeams = await this._service.findAll();
+
     return res.status(201).json(result);
   }
 }

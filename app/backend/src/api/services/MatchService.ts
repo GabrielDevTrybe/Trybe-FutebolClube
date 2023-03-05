@@ -1,7 +1,8 @@
-import { ModelStatic } from 'sequelize';
+import { ModelStatic, Op } from 'sequelize';
 import Team from '../../database/models/TeamModel';
 import Match from '../../database/models/MatchModel';
 import IMathService from '../interfaces/IMatchService';
+import ErrorStatus from '../error/ErrorStatus';
 
 export default class MatchService implements IMathService {
   protected model: ModelStatic<Match> = Match;
@@ -30,6 +31,13 @@ export default class MatchService implements IMathService {
     awayTeamId: number,
     awayTeamGoals: number,
   ): Promise<Match> {
+    const alreadyExist = await Team.findAll({
+      where: { id: { [Op.or]: [homeTeamId, awayTeamId] } } });
+
+    if (alreadyExist.length < 2) {
+      throw new ErrorStatus(404, 'There is no team with such id!');
+    }
+
     const result = await this.model.create({
       homeTeamId,
       homeTeamGoals,
@@ -37,6 +45,7 @@ export default class MatchService implements IMathService {
       awayTeamGoals,
       inProgress: true,
     });
+
     return result;
   }
 }
