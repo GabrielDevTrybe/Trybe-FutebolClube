@@ -1,7 +1,4 @@
 <details>
-<summary><strong>👨‍💻 O que foi desenvolvido</strong></summary><br />
-
-  ![Exemplo app front](assets/front-example.png)
 
   O `TFC` é um site informativo sobre partidas e classificações de futebol! ⚽️
 
